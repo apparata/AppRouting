@@ -13,4 +13,4 @@ Documentation pending.
 
 ## Deep Links
 
-The AppRouting package plays well together with the deep link matching from the [URLToolbox](https://github.com/memfrag/URLToolbox) package.
+The AppRouting package plays well together with the deep link matching from the [URLToolbox](https://github.com/apparata/URLToolbox) package.
