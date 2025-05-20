@@ -41,6 +41,13 @@ public struct RoutingButton<R: Routing, Label: View>: View {
     private let action: (Router<R>) -> Void
     private let label: Label
 
+    /// Creates a `RoutingButton` that uses the environment-injected router for the specified `Routing` type.
+    ///
+    /// - Parameters:
+    ///   - routing: The root routing type to associate this button with.
+    ///   - action: A closure that receives the environment-injected `Router` and performs navigation operations.
+    ///   - label: A view builder that provides the content of the button.
+    ///   
     @preconcurrency public init(
         _ routing: R.Type,
         action: @escaping @MainActor (Router<R>) -> Void,
