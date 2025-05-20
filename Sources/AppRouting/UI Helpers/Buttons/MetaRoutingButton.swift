@@ -4,6 +4,26 @@
 
 import SwiftUI
 
+/// Convenience button that wraps an `@Environment` for providing
+/// the ``MetaRouter`` instance, corresponding to the given root ``Routing``,
+/// to the action closure.
+///
+/// **Example:**
+///
+/// ```swift
+/// MetaRoutingButton(MainRouting.self) { metaRouting in
+///     metaRouting
+///         .select(.profileTab)
+///         .presentSheet(.settings)
+///         .routing(SettingsRouting.self)
+///         .dismissPresentables()
+///         .push(.attributions)
+/// } label: {
+///     Text("Attributions")
+/// }
+/// .buttonStyle(.borderedProminent)
+/// ```
+///
 public struct MetaRoutingButton<R: Routing, Label: View>: View {
 
     @Environment(MetaRouter.self) private var metaRouter

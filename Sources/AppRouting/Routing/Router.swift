@@ -18,6 +18,9 @@ import SwiftUI
 
     /// A dictionary mapping each selectable to its corresponding navigation stack.
     /// Essentially, this is the navigation stack for each tab.
+    ///
+    /// - Note: Do NOT modify this property manually. It's only meant for bindings.
+    ///
     public var paths: [T.Selectable: [T.Pushable]] = {
         T.Selectable.allCases.reduce(into: [:]) { result, selectable in
             result[selectable] = []
@@ -93,6 +96,30 @@ import SwiftUI
         return self
     }
 
+    // MARK: Set Path
+
+    /// Pushes one or more destinations onto the root of the navigation stack
+    /// (of the currently active selectable).
+    ///
+    /// - Parameter pushable: One or more destinations to push from the root of the stack.
+    /// - Returns: The router instance for method chaining.
+    ///
+    @discardableResult public func setPath(_ pushable: T.Pushable...) -> Router<T> {
+        activePath.append(contentsOf: pushable)
+        return self
+    }
+
+    /// Pushes one or more destinations onto the root of the navigation stack
+    /// (of the currently active selectable).
+    ///
+    /// - Parameter pushable: Array of destinations to push from the root of the stack.
+    /// - Returns: The router instance for method chaining.
+    ///
+    @discardableResult public func setPath(_ pushables: [T.Pushable]) -> Router<T> {
+        activePath.append(contentsOf: pushables)
+        return self
+    }
+
     // MARK: Push
 
     /// Pushes one or more destinations onto the navigation stack (of the currently active selectable).
@@ -102,6 +129,16 @@ import SwiftUI
     ///
     @discardableResult public func push(_ pushable: T.Pushable...) -> Router<T> {
         activePath.append(contentsOf: pushable)
+        return self
+    }
+
+    /// Pushes one or more destinations onto the navigation stack (of the currently active selectable).
+    ///
+    /// - Parameter pushables: Array of pushable destinations to push.
+    /// - Returns: The router instance for method chaining.
+    ///
+    @discardableResult public func push(_ pushables: [T.Pushable]) -> Router<T> {
+        activePath.append(contentsOf: pushables)
         return self
     }
 
