@@ -37,7 +37,51 @@ import SwiftUI
 
 /// A result builder for constructing arrays of `RoutingContext` instances.
 @resultBuilder @MainActor public struct RoutingContextsBuilder {
+
+    public static func buildBlock() -> [RoutingContext] {
+        return []
+    }
+
+    public static func buildBlock(_ expression: RoutingContext) -> [RoutingContext] {
+        return [expression]
+    }
+
     public static func buildBlock(_ components: RoutingContext...) -> [RoutingContext] {
         return components
     }
+
+    public static func buildPartialBlock(first: RoutingContext) -> [RoutingContext] {
+        return [first]
+    }
+
+    public static func buildPartialBlock(first: [RoutingContext]) -> [RoutingContext] {
+        return first
+    }
+
+    public static func buildPartialBlock(accumulated: [RoutingContext], next: RoutingContext) -> [RoutingContext] {
+        return accumulated + [next]
+    }
+
+    public static func buildPartialBlock(accumulated: [RoutingContext], next: [RoutingContext]) -> [RoutingContext] {
+        return accumulated + next
+    }
+
+    public static func buildExpression(_ expression: RoutingContext) -> [RoutingContext] {
+        return [expression]
+    }
+
+    public static func buildExpression<T: Routing>(_ expression: T.Type) -> [RoutingContext] {
+        return [RoutingContext(expression)]
+    }
+
+    public static func buildArray(_ components: [[RoutingContext]]) -> [RoutingContext] {
+        return components.flatMap { $0 }
+    }
+}
+
+// MARK: - Context Children Operator
+
+infix operator -->: MultiplicationPrecedence
+@MainActor public func --> <T: Routing>(lhs: T.Type, @RoutingContextsBuilder rhs: () -> [RoutingContext]) -> RoutingContext {
+    return RoutingContext(lhs, children: rhs())
 }

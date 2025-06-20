@@ -4,15 +4,15 @@
 
 import Swift
 
-// MARK: - Routing Pushable
+// MARK: - Pushable Destination
 
 /// Represents a routing destination that can be pushed onto a navigation stack.
-public protocol RoutingPushable: Identifiable, Hashable, Sendable, Codable {
+public protocol PushableDestination: Identifiable, Hashable, Sendable, Codable {
     //
 }
 
 // MARK: - Default Implementations
 
-public extension RoutingPushable {
+public extension PushableDestination {
     var id: Self { self }
 }

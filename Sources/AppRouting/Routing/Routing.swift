@@ -42,13 +42,13 @@ import Swift
 public protocol Routing: Sendable {
 
     /// Tab destinations should be represented by the `Selectable` type.
-    associatedtype Selectable: RoutingSelectable
+    associatedtype Selectable: SelectableDestination
 
     /// Navigation stack destinations should be represented by the `Pushable` type.
-    associatedtype Pushable: RoutingPushable
+    associatedtype Pushable: PushableDestination
 
     /// Sheet destinations should be represented by the `Presentable` type.
-    associatedtype Presentable: RoutingPresentable
+    associatedtype Presentable: PresentableDestination
 }
 
 // MARK: - Selectable and Pushable
@@ -201,7 +201,7 @@ public protocol PresentableRouting: Routing where Selectable == NoSelectable, Pu
 ///
 /// This will probably not be used directly by clients of this package.
 ///
-public struct NoSelectable: RoutingSelectable {
+public struct NoSelectable: SelectableDestination {
     public static let allCases = [Self()]
 }
 
@@ -211,7 +211,7 @@ public struct NoSelectable: RoutingSelectable {
 ///
 /// This will probably not be used directly by clients of this package.
 ///
-public struct NoPushable: RoutingPushable {
+public struct NoPushable: PushableDestination {
     //
 }
 
@@ -221,6 +221,6 @@ public struct NoPushable: RoutingPushable {
 ///
 /// This will probably not be used directly by clients of this package.
 ///
-public struct NoPresentable: RoutingPresentable {
+public struct NoPresentable: PresentableDestination {
     //
 }

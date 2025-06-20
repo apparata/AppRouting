@@ -5,10 +5,10 @@
 import Swift
 import OSLog
 
-// MARK: - Routing Selectable
+// MARK: - SelectableDestination
 
 /// Represents a routing destination that is selectable, such as a tab.
-public protocol RoutingSelectable: Identifiable, Hashable, CaseIterable, Sendable, Codable {
+public protocol SelectableDestination: Identifiable, Hashable, CaseIterable, Sendable, Codable {
 
     /// The selectable that should be active by default.
     /// The default implementation will take the first element from `allCases`.
@@ -17,7 +17,7 @@ public protocol RoutingSelectable: Identifiable, Hashable, CaseIterable, Sendabl
 
 // MARK: - Default Implementations
 
-public extension RoutingSelectable {
+public extension SelectableDestination {
     var id: Self { self }
 
     static var defaultActive: Self {
